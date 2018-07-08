@@ -16,12 +16,22 @@
 
 body{
 	margin: 0;
-
+	img{
+	padding-top:7px;
+	}
+	#connecti{
+	display: inline-block;
+	font-weight:bold;
+	font-size:25px;
+	margin-top:1px;
+	margin-bottom:20px;
+    vertical-align: 15px;
+	}
 	#common-header{
+		background-color:#beff00;
 		display: flex;
-		justify-content: space-around;
-		box-shadow: 1px 1px 1px 1px lightgrey;
-
+		justify-content:space-around;
+		box-shadow:8px -1px 20px 0px;
 
 		.logo{
 			width: 40%;
@@ -29,29 +39,42 @@ body{
 		}
 
 		.auth-info-links{
+			margin-top:5px;
 			width: 40%;
 			text-align: right;
 
 			display: flex;
 			justify-content: flex-end;
 
-			p:first-child{
-				margin-right: 15px;
+			.butts{
+				background-color:#000065;
+				border-radius:10px;
+				width:100px;
+				height:40px;
+				text-align:center;
+				margin-bottom:5px;
+				margin-top:8px;
+				a{
+					display:inline-block;
+					height:40px;
+					padding-top:9px;
+					text-decoration:none;
+					color:white;
+					font-weight:bold;
+					text-transform:uppercase;
+
+				}
+
+
 			}
+
+			p:first-child{
+			margin-right:15px;
+			font-family: monospace;
+			font-size:17px;
+			}
+
+
 		}
-
 	}
-
-
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -1,94 +1,82 @@
 <main id="posts-home">
-
-	<div>Group Links</div>
+	<div class="sidebars"><h1>Group Links</h1><hr></div>
 
 	<div class="deewar-posts">
-		<div class="new-post-form">
-			<% if user_signed_in? %>
-			<%= form_for @post do |f| %>
-				<%= f.label :content %>
-				<%= f.text_area :content %>
+		<br>
+		<div id="create-post">
+			<% if user_signed_in? %>	
+				<%= form_for @post do |f| %>
 
-				<%= f.submit %>
-			<% end %>
+					<%= f.text_area :content ,placeholder:"Write Something..."%>
+					<br>
+					<%= f.submit id: "buttonpo"%>
+				<% end %>
 			<% end %>
 		</div>
 
-		<div >
-			<ul class="posts-list">
+		<div id="disp-post">
+			<ul>
 				<% @posts.reverse.each do |post| %>
-				<li>
-					<div>
-
-						<p><%= post.content %></p>
-						<p><%= post.user.email %></p>
-						<% if user_signed_in? && post.user_id ==  current_user.id %>
-						<p><%= link_to "Delete", destroy_post_path(post.id), method: :delete %></p>
-						<% end %>
+					<li>
+					<div class="posts-show">
+						<p class="align-left email"><%= post.user.email %></p>
+						<p class="align-left content"><%= post.content %></p>
 
 						<% if user_signed_in? %>
-						<p>
-							<sub>
-								<%= post.likes.length %>
-								&nbsp
-								<%= link_to post.like_status_string(current_user.id), toggle_like_path(post.id), method: :post %>
-							</sub>
-						</p>
-						<% else %>
-						<sub>
-								<%= post.likes.length %> Likes
-						
-							</sub>
-
-						<% end %>
-
-						<div>
-							<h5>Add Comment</h5>
-							<% if user_signed_in? %>
-							<%= form_for @comment do |f| %>
-								<%= f.hidden_field :post_id, value: post.id %>
-
-								<%= f.label :content %>
-								<%= f.text_area :content %>
-
-								<%= f.submit %>
+							<p class="like-left">
+									<%= post.likes.length %> People Like this
+									&nbsp;
+									<%= link_to post.like_status_string(current_user.id), toggle_like_path(post.id),method: :post,id:"like" %>
+							</p>
+							<% if post.user_id ==current_user.id %>
+								<p class="del-right"><%= link_to "Delete",destroy_post_path(post),method: :delete ,id:"deletepo"%></p>
 							<% end %>
-							<% end %>
+						<% end %>	
+						<br><br>
+						<div id="disp-comments">
+							<% if user_signed_in? %>	
+								<%= form_for @comment do |f| %>
 
-							<ul>
-								<% post.comments.reverse.each do |comment| %>
-								<li>
-									<p><%= comment.content %>
-										<sub><%= comment.user.email %></sub>
-									</p>
-									<% if user_signed_in? && comment.user_id ==  current_user.id %>
-										<p><%= link_to "Delete", destroy_comment_path(comment.id), method: :delete %></p>
-										<% end %>
+									<%= f.hidden_field :post_id,value: post.id %>
 
-								</li>
-
+									<%= f.text_area :content,placeholder:"Comment..." %>
+									<br>
+									<%= f.submit id: "buttonco"%>
+									<br>
+									<br>
+									<br>
 								<% end %>
-							</ul>
+							<% end %>
 
+								<ul>
+									<% post.comments.reverse.each do |comment| %>
+										<li>
+											<div id="disp-comments-inner">
+												<p class="email align-left"><%= comment.user.email%></p>
+													<p class="align-left content-comment"><%= comment.content %></p>
+												<% if user_signed_in? %>
+													<% if comment.user_id == current_user.id || current_user.id == post.user_id %>
+														<p><%= link_to "Delete Comment",destroy_comment_path(comment.id),method: :delete,id:"del-comment"%></p>
+													<% end %>
+												<% end %>
+											</div>
+										</li>
+									<% end %>
+						
+								</ul>
 
 						</div>
-					</div>
-				</li>
-
-				<% end %>
+					
+					</div>	
+					
+					</li>
+					<br>
+			 	<% end %>
 			</ul>
 
-
 		</div>
-		
-
+	
 	</div>
 
-
-	<div>Friends</div>
-
+	<div class="sidebars"><h1>Friends</h1><hr></div>
 </main>
-
-
-
-
